@@ -20,12 +20,32 @@ ThemeData basicTheme() {
       ),
       bodyText1: base.bodyText1!.copyWith(
         color: kPrimaryYellow,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
       ),
       bodyText2: base.bodyText2!.copyWith(
-        color: kPrimaryYellow,
+        color: Colors.black,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
       ),
       button: base.button!.copyWith(
         color: kPrimaryYellow,
+      ),
+      headline1: base.headline1!.copyWith(
+        color: Colors.black,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        fontFamily: 'ZenTokoyo',
+      ),
+      headline2: base.headline2!.copyWith(
+        color: Colors.black45,
+        fontSize: 18,
+        fontFamily: 'ZenTokoyo',
+      ),
+      headline3: base.headline3!.copyWith(
+        color: Colors.black45,
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
       ),
     );
   }

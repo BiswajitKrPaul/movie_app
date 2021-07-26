@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: toogleScreen(currentIndex),
       bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: kBackGroudColor,
+        backgroundColor: Colors.transparent,
         buttonBackgroundColor:
             Theme.of(context).floatingActionButtonTheme.backgroundColor,
         items: [
@@ -80,9 +80,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
         animationDuration: const Duration(milliseconds: 250),
-        letIndexChange: (index) {
-          return true;
-        },
         onTap: onSelectedIndex,
       ),
     );
