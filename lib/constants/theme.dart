@@ -35,17 +35,23 @@ ThemeData basicTheme() {
         color: Colors.black,
         fontSize: 20,
         fontWeight: FontWeight.bold,
-        fontFamily: 'ZenTokoyo',
+        //fontFamily: 'ZenTokoyo',
       ),
       headline2: base.headline2!.copyWith(
         color: Colors.black45,
         fontSize: 18,
-        fontFamily: 'ZenTokoyo',
+        //fontFamily: 'ZenTokoyo',
       ),
       headline3: base.headline3!.copyWith(
         color: Colors.black45,
+        fontSize: 12,
+        fontWeight: FontWeight.w700,
+      ),
+      headline5: base.headline5!.copyWith(
+        color: Colors.black,
         fontSize: 16,
         fontWeight: FontWeight.bold,
+        //fontFamily: 'ZenTokoyo',
       ),
     );
   }

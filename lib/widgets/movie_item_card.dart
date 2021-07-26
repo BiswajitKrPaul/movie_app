@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 
 class MovieItemCardView extends StatelessWidget {
   final int index;
-  const MovieItemCardView(
-      {required this.index,
-      this.movieName = 'Harry Potter and the Goblet of Fire'});
+  const MovieItemCardView({required this.index, this.movieName = 'Fight Club'});
   final String movieName;
 
   @override
@@ -12,14 +10,18 @@ class MovieItemCardView extends StatelessWidget {
     return InkWell(
       onTap: () => debugPrint(index.toString()),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         child: Stack(
           children: [
             //Back Ground Item
             Padding(
-              padding: const EdgeInsets.only(top: 35),
+              padding: const EdgeInsets.only(top: 40),
               child: Container(
-                height: 180,
+                height: 150,
+                width:
+                    MediaQuery.of(context).orientation == Orientation.landscape
+                        ? MediaQuery.of(context).size.width * .9
+                        : MediaQuery.of(context).size.width,
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(
@@ -53,9 +55,9 @@ class MovieItemCardView extends StatelessWidget {
                                     movieName,
                                     style: Theme.of(context)
                                         .primaryTextTheme
-                                        .headline1,
-                                    maxLines: 1,
-                                    softWrap: false,
+                                        .headline5,
+                                    maxLines: 2,
+                                    softWrap: true,
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
@@ -63,16 +65,19 @@ class MovieItemCardView extends StatelessWidget {
                                   width: 10,
                                 ),
                                 Text(
-                                  '9/10',
+                                  '8.0',
                                   style: Theme.of(context)
                                       .primaryTextTheme
                                       .bodyText1,
                                 ),
                               ],
                             ),
+                            const SizedBox(
+                              height: 10,
+                            ),
                             Flexible(
                               child: Text(
-                                'Director: ABSBSBSBS',
+                                'Director: Nates',
                                 style: Theme.of(context)
                                     .primaryTextTheme
                                     .headline3,
@@ -81,13 +86,16 @@ class MovieItemCardView extends StatelessWidget {
                                 softWrap: false,
                               ),
                             ),
-                            Text(
-                              'Starring: ABSBSBSBS',
-                              style:
-                                  Theme.of(context).primaryTextTheme.headline3,
-                              softWrap: false,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                            Flexible(
+                              child: Text(
+                                'Starring: Eddie/Therine',
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .headline3,
+                                softWrap: false,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                           ],
                         ),
@@ -101,8 +109,8 @@ class MovieItemCardView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20),
               child: Container(
-                width: 150,
-                height: 190,
+                width: 120,
+                height: 170,
                 decoration: const BoxDecoration(
                   color: Colors.green,
                   borderRadius: BorderRadius.all(
