@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/constants/api_constants.dart';
 
 class MovieItemCardView extends StatelessWidget {
   final int index;
-  const MovieItemCardView({required this.index, this.movieName = 'Fight Club'});
   final String movieName;
+  final String imageUrl;
+  final String rating;
+
+  const MovieItemCardView({
+    required this.index,
+    required this.movieName,
+    required this.imageUrl,
+    required this.rating,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +74,7 @@ class MovieItemCardView extends StatelessWidget {
                                   width: 10,
                                 ),
                                 Text(
-                                  '8.0',
+                                  rating,
                                   style: Theme.of(context)
                                       .primaryTextTheme
                                       .bodyText1,
@@ -111,14 +120,13 @@ class MovieItemCardView extends StatelessWidget {
               child: Container(
                 width: 120,
                 height: 170,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: Colors.green,
-                  borderRadius: BorderRadius.all(
+                  borderRadius: const BorderRadius.all(
                     Radius.circular(20),
                   ),
                   image: DecorationImage(
-                    image: NetworkImage(
-                        'https://creativereview.imgix.net/content/uploads/2019/12/joker_full.jpg?auto=compress,format&q=60&w=1012&h=1500'),
+                    image: NetworkImage('$kPosterURL$imageUrl'),
                     fit: BoxFit.fill,
                   ),
                 ),

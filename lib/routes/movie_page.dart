@@ -1,10 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app/blocs/movie/movie_search_bloc.dart';
 import 'package:movie_app/constants/theme.dart';
-import 'package:movie_app/widgets/movie_item_card.dart';
+import 'package:movie_app/models/search_movie_item.dart';
+import 'package:movie_app/widgets/popular_movie_list.dart';
 
-class MovieHome extends StatelessWidget {
+class MovieHome extends StatefulWidget {
   final String _title;
   const MovieHome(this._title);
+
+  @override
+  _MovieHomeState createState() => _MovieHomeState();
+}
+
+class _MovieHomeState extends State<MovieHome> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<MovieSearchBloc>().add(const PopularMovieSearch());
+    //context.read<MovieSearchBloc>().add(const PopularMovieSearch());
+  }
+
+  void onLastItem() {
+    context.read<MovieSearchBloc>().add(const PopularMovieSearch());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +32,7 @@ class MovieHome extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            _title,
+            widget._title,
           ),
           centerTitle: false,
           bottom: TabBar(
@@ -35,16 +54,29 @@ class MovieHome extends StatelessWidget {
           ),
         ),
         body: TabBarView(children: [
-          ListView.builder(
-            itemCount: 10,
-            itemBuilder: (BuildContext context, int index) {
-              return MovieItemCardView(
-                index: index,
+          BlocBuilder<MovieSearchBloc, MovieSearchState>(
+            builder: (context, state) {
+              if (state is MovieSearchLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is MovieSearchResults) {
+                return PopularMovieList(
+                  movieList: state.moviesList as List<Result>,
+                  onLastItem: onLastItem,
+                );
+              } else if (state is MovieSearchError) {
+                return Center(
+                  child: Text(state.error.toString()),
+                );
+              }
+              return const Center(
+                child: Text('Something Went Wrong'),
               );
             },
           ),
           const Center(
-            child: Text('Tab 2'),
+            child: Text('Data'),
           ),
         ]),
       ),

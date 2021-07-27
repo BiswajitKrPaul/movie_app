@@ -28,6 +28,7 @@ dependencies:
   equatable: ^2.0.3
   flutter_bloc: ^7.0.1
   fluttericon: ^2.0.0
+  http: ^0.13.3
   lint: ^1.5.3
 
 dev_dependencies:
