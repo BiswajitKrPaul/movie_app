@@ -12,20 +12,27 @@ class PopularMovieList extends StatefulWidget {
 
 class _PopularMovieListState extends State<PopularMovieList> {
   late ScrollController scrollController;
+  late int page = 1;
+  late int totalPage;
 
   @override
   void initState() {
     super.initState();
     scrollController = ScrollController();
     scrollController.addListener(scrollItems);
-    context.read<MovieSearchBloc>().add(const PopularMovieSearch());
+    final stateValue = BlocProvider.of<MovieSearchBloc>(context).state;
+    page = stateValue.page;
+    totalPage = stateValue.totalpages;
+    if (stateValue.movieItems.isEmpty) {
+      context.read<MovieSearchBloc>().add(PopularMovieSearch(stateValue.page));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MovieSearchBloc, MovieSearchState>(
       builder: (context, state) {
-        if (state.movieItems.isEmpty) {
+        if (state is MovieSearchInitial) {
           return const Center(
             child: CircularProgressIndicator(),
           );
@@ -33,8 +40,12 @@ class _PopularMovieListState extends State<PopularMovieList> {
         if (state is MovieSearchResults) {
           return ListView.builder(
             controller: scrollController,
-            itemCount: state.moviesList.length + 1,
+            itemCount: state.page == state.totalpage
+                ? state.moviesList.length
+                : state.moviesList.length + 1,
             itemBuilder: (BuildContext context, int index) {
+              page = state.page;
+              totalPage = state.totalpage;
               return index == state.moviesList.length
                   ? const Center(
                       child: CircularProgressIndicator(),
@@ -45,8 +56,14 @@ class _PopularMovieListState extends State<PopularMovieList> {
                       imageUrl: state.moviesList[index].posterPath,
                       rating: state.moviesList[index].voteAverage.toString(),
                       releaseDate: state.moviesList[index].releaseDate,
+                      overView: state.moviesList[index].overview,
                     );
             },
+          );
+        }
+        if (state is MovieSearchEvent) {
+          return const Center(
+            child: Text('Something went wrong'),
           );
         } else {
           return const Center(
@@ -60,7 +77,9 @@ class _PopularMovieListState extends State<PopularMovieList> {
   void scrollItems() {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
-      context.read<MovieSearchBloc>().add(const PopularMovieSearch());
+      if (page != totalPage) {
+        context.read<MovieSearchBloc>().add(PopularMovieSearch(page + 1));
+      }
     }
   }
 

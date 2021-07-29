@@ -7,6 +7,7 @@ class MovieItemCardView extends StatelessWidget {
   final String imageUrl;
   final String rating;
   final String releaseDate;
+  final String overView;
 
   const MovieItemCardView({
     required this.index,
@@ -14,6 +15,7 @@ class MovieItemCardView extends StatelessWidget {
     required this.imageUrl,
     required this.rating,
     required this.releaseDate,
+    required this.overView,
   });
 
   @override
@@ -42,20 +44,20 @@ class MovieItemCardView extends StatelessWidget {
                 child: Row(
                   children: [
                     Expanded(
-                      flex: 3,
+                      flex: 14,
                       child: Container(
                         color: Colors.transparent,
                       ),
                     ),
                     Expanded(
-                      flex: 4,
+                      flex: 20,
                       child: Container(
-                        margin: const EdgeInsets.all(8),
+                        margin:
+                            const EdgeInsets.only(top: 8, bottom: 8, right: 8),
                         decoration: const BoxDecoration(
                           color: Colors.transparent,
                         ),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
@@ -84,11 +86,11 @@ class MovieItemCardView extends StatelessWidget {
                               ],
                             ),
                             const SizedBox(
-                              height: 10,
+                              height: 6,
                             ),
                             Flexible(
                               child: Text(
-                                'Release Date: $releaseDate',
+                                '($releaseDate)',
                                 style: Theme.of(context)
                                     .primaryTextTheme
                                     .headline3,
@@ -97,14 +99,15 @@ class MovieItemCardView extends StatelessWidget {
                                 softWrap: false,
                               ),
                             ),
-                            Flexible(
+                            Padding(
+                              padding: const EdgeInsets.only(top: 15),
                               child: Text(
-                                'Starring: Eddie/Therine',
+                                overView,
                                 style: Theme.of(context)
                                     .primaryTextTheme
                                     .headline3,
-                                softWrap: false,
-                                maxLines: 1,
+                                //softWrap: false,
+                                maxLines: 3,
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -123,7 +126,7 @@ class MovieItemCardView extends StatelessWidget {
                 width: 120,
                 height: 170,
                 decoration: BoxDecoration(
-                  color: Colors.green,
+                  color: Colors.transparent,
                   borderRadius: const BorderRadius.all(
                     Radius.circular(20),
                   ),

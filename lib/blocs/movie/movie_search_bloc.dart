@@ -12,7 +12,7 @@ class MovieSearchBloc extends Bloc<MovieSearchEvent, MovieSearchState> {
   final MovieRepository movieRepository;
   late List<Result> movieList;
   MovieSearchBloc({required this.movieRepository})
-      : super(const MovieSearchInitial([]));
+      : super(const MovieSearchInitial([], 1));
 
   @override
   Stream<MovieSearchState> mapEventToState(
@@ -20,15 +20,15 @@ class MovieSearchBloc extends Bloc<MovieSearchEvent, MovieSearchState> {
   ) async* {
     if (event is PopularMovieSearch) {
       try {
-        final movies = await movieRepository.searchPopularMovie(state.page)
-            as List<Result>;
-        movieList = [...state.movieItems, ...movies];
+        final movies =
+            await movieRepository.searchPopularMovie(event.oldPage.toString());
+        movieList = [...state.movieItems, ...movies.results];
         yield MovieSearchResults(
             moviesList: movieList,
-            pageno: (int.parse(state.page) + 1).toString());
+            pageno: movies.page,
+            totalpage: movies.totalPages);
       } catch (err) {
-        print(err);
-        yield MovieSearchLoading();
+        yield MovieSearchError();
       }
     }
   }

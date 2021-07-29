@@ -8,10 +8,12 @@ abstract class MovieSearchEvent extends Equatable {
 
 // TODO: Need to add more events
 class PopularMovieSearch extends MovieSearchEvent {
-  const PopularMovieSearch();
+  final int oldPage;
+  const PopularMovieSearch(this.oldPage);
 }
 
 class PopularMovieMoreSearch extends MovieSearchEvent {
   final List<Result> oldData;
-  const PopularMovieMoreSearch(this.oldData);
+  final int oldPage;
+  const PopularMovieMoreSearch(this.oldData, this.oldPage);
 }
