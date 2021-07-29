@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/constants/theme.dart';
 import 'package:movie_app/widgets/popular_movie_list.dart';
+import 'package:movie_app/widgets/upcoming_movie_list.dart';
 
 class MovieHome extends StatefulWidget {
   final String _title;
@@ -41,9 +42,7 @@ class _MovieHomeState extends State<MovieHome> {
         ),
         body: const TabBarView(children: [
           PopularMovieList(),
-          Center(
-            child: Text('Data'),
-          ),
+          UpcomingMovieList(),
         ]),
       ),
     );

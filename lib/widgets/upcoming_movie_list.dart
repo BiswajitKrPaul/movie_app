@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_app/blocs/movie/movie_search_bloc.dart';
-import 'package:movie_app/widgets/movie_item_card.dart';
+import 'package:movie_app/blocs/popularmovies/popular_movie_bloc.dart';
 
-class PopularMovieList extends StatefulWidget {
-  const PopularMovieList();
+import 'movie_item_card.dart';
+
+class UpcomingMovieList extends StatefulWidget {
+  const UpcomingMovieList();
 
   @override
-  _PopularMovieListState createState() => _PopularMovieListState();
+  _UpcomingMovieListState createState() => _UpcomingMovieListState();
 }
 
-class _PopularMovieListState extends State<PopularMovieList> {
+class _UpcomingMovieListState extends State<UpcomingMovieList> {
   late ScrollController scrollController;
   late int page = 1;
   late int totalPage;
@@ -20,24 +21,26 @@ class _PopularMovieListState extends State<PopularMovieList> {
     super.initState();
     scrollController = ScrollController();
     scrollController.addListener(scrollItems);
-    final stateValue = BlocProvider.of<MovieSearchBloc>(context).state;
+    final stateValue = BlocProvider.of<PopularMovieBloc>(context).state;
     page = stateValue.page;
     totalPage = stateValue.totalpages;
     if (stateValue.movieItems.isEmpty) {
-      context.read<MovieSearchBloc>().add(PopularMovieSearch(stateValue.page));
+      context
+          .read<PopularMovieBloc>()
+          .add(UpcomingMovieSearch(stateValue.page));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MovieSearchBloc, MovieSearchState>(
+    return BlocBuilder<PopularMovieBloc, PopularMovieState>(
       builder: (context, state) {
-        if (state is MovieSearchInitial) {
+        if (state is PopularMovieInitial) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
-        if (state is MovieSearchResults) {
+        if (state is UpcomingMovieResult) {
           return ListView.builder(
             controller: scrollController,
             itemCount: state.page == state.totalpage
@@ -60,6 +63,11 @@ class _PopularMovieListState extends State<PopularMovieList> {
                     );
             },
           );
+        }
+        if (state is PopularMovieError) {
+          return const Center(
+            child: Text('Something went wrong'),
+          );
         } else {
           return const Center(
             child: Text('Something went wrong'),
@@ -73,7 +81,7 @@ class _PopularMovieListState extends State<PopularMovieList> {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
       if (page != totalPage) {
-        context.read<MovieSearchBloc>().add(PopularMovieSearch(page + 1));
+        context.read<PopularMovieBloc>().add(UpcomingMovieSearch(page + 1));
       }
     }
   }

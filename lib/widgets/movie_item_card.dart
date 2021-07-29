@@ -131,7 +131,10 @@ class MovieItemCardView extends StatelessWidget {
                     Radius.circular(20),
                   ),
                   image: DecorationImage(
-                    image: NetworkImage('$kPosterURL$imageUrl'),
+                    image: imageUrl == ''
+                        ? const NetworkImage(
+                            'https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227724992-stock-illustration-image-available-icon-flat-vector.jpg')
+                        : NetworkImage('$kPosterURL$imageUrl'),
                     fit: BoxFit.fill,
                   ),
                 ),
