@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/models/search_movie_item.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app/blocs/movie/movie_search_bloc.dart';
 import 'package:movie_app/widgets/movie_item_card.dart';
 
 class PopularMovieList extends StatefulWidget {
-  final List<Result> movieList;
-  final Function onLastItem;
-  const PopularMovieList({required this.movieList, required this.onLastItem});
+  const PopularMovieList();
 
   @override
   _PopularMovieListState createState() => _PopularMovieListState();
@@ -14,34 +13,58 @@ class PopularMovieList extends StatefulWidget {
 class _PopularMovieListState extends State<PopularMovieList> {
   late ScrollController scrollController;
 
-  void scrolitems() {
-    if (scrollController.offset >= scrollController.position.maxScrollExtent &&
-        !scrollController.position.outOfRange) {
-      widget.onLastItem();
-    }
-  }
-
   @override
   void initState() {
     super.initState();
     scrollController = ScrollController();
-    scrollController.addListener(scrolitems);
+    scrollController.addListener(scrollItems);
+    context.read<MovieSearchBloc>().add(const PopularMovieSearch());
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      controller: scrollController,
-      itemCount: widget.movieList.length,
-      physics: const AlwaysScrollableScrollPhysics(),
-      itemBuilder: (BuildContext context, int index) {
-        return MovieItemCardView(
-          index: index,
-          movieName: widget.movieList[index].originalTitle,
-          imageUrl: widget.movieList[index].posterPath,
-          rating: widget.movieList[index].voteAverage.toString(),
-        );
+    return BlocBuilder<MovieSearchBloc, MovieSearchState>(
+      builder: (context, state) {
+        if (state.movieItems.isEmpty) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (state is MovieSearchResults) {
+          return ListView.builder(
+            controller: scrollController,
+            itemCount: state.moviesList.length + 1,
+            itemBuilder: (BuildContext context, int index) {
+              return index == state.moviesList.length
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : MovieItemCardView(
+                      index: index,
+                      movieName: state.moviesList[index].title,
+                      imageUrl: state.moviesList[index].posterPath,
+                      rating: state.moviesList[index].voteAverage.toString(),
+                      releaseDate: state.moviesList[index].releaseDate,
+                    );
+            },
+          );
+        } else {
+          return const Center(
+            child: Text('Something went wrong'),
+          );
+        }
       },
     );
+  }
+
+  void scrollItems() {
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
+      context.read<MovieSearchBloc>().add(const PopularMovieSearch());
+    }
+  }
+
+  int resultLength(MovieSearchResults state) {
+    return state.moviesList.length + 1;
   }
 }

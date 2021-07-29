@@ -6,12 +6,14 @@ class MovieItemCardView extends StatelessWidget {
   final String movieName;
   final String imageUrl;
   final String rating;
+  final String releaseDate;
 
   const MovieItemCardView({
     required this.index,
     required this.movieName,
     required this.imageUrl,
     required this.rating,
+    required this.releaseDate,
   });
 
   @override
@@ -86,7 +88,7 @@ class MovieItemCardView extends StatelessWidget {
                             ),
                             Flexible(
                               child: Text(
-                                'Director: Nates',
+                                'Release Date: $releaseDate',
                                 style: Theme.of(context)
                                     .primaryTextTheme
                                     .headline3,

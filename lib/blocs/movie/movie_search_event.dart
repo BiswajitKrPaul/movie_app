@@ -12,5 +12,6 @@ class PopularMovieSearch extends MovieSearchEvent {
 }
 
 class PopularMovieMoreSearch extends MovieSearchEvent {
-  const PopularMovieMoreSearch();
+  final List<Result> oldData;
+  const PopularMovieMoreSearch(this.oldData);
 }
