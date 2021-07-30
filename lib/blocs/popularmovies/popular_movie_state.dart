@@ -9,7 +9,7 @@ abstract class PopularMovieState extends Equatable {
       {required this.movieItems, required this.page, required this.totalpages});
 
   @override
-  List<Object> get props => [movieItems, page, totalpages];
+  List<Object> get props => [movieItems];
 }
 
 class PopularMovieInitial extends PopularMovieState {

@@ -78,7 +78,7 @@ class MovieItemCardView extends StatelessWidget {
                                   width: 10,
                                 ),
                                 Text(
-                                  rating,
+                                  rating == '0.0' ? 'NA' : rating,
                                   style: Theme.of(context)
                                       .primaryTextTheme
                                       .bodyText1,

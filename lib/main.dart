@@ -13,17 +13,19 @@ void main() {
     statusBarColor: Colors.transparent,
     statusBarBrightness: Brightness.light, // status bar color
   ));
-  runApp(MultiBlocProvider(
-    providers: [
-      BlocProvider(
-        create: (context) => MovieSearchBloc(movieRepository: MovieItem()),
-      ),
-      BlocProvider(
-        create: (ctx) => PopularMovieBloc(movieRepository: MovieItem()),
-      ),
-    ],
-    child: MyApp(),
-  ));
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => MovieSearchBloc(movieRepository: MovieItem()),
+        ),
+        BlocProvider(
+          create: (ctx) => PopularMovieBloc(movieRepository: MovieItem()),
+        ),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
