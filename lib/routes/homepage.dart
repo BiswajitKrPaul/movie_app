@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttericon/iconic_icons.dart';
 import 'package:fluttericon/linecons_icons.dart';
 import 'package:fluttericon/octicons_icons.dart';
-
-import 'package:movie_app/constants/theme.dart';
 import 'package:movie_app/routes/favourites_pages.dart';
 import 'package:movie_app/routes/movie_page.dart';
 import 'package:movie_app/routes/search_page.dart';

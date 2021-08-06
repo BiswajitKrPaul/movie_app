@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/constants/api_constants.dart';
+import 'package:movie_app/routes/movie/movie_screen.dart';
 
 class MovieItemCardView extends StatelessWidget {
   final int index;
@@ -8,6 +9,7 @@ class MovieItemCardView extends StatelessWidget {
   final String rating;
   final String releaseDate;
   final String overView;
+  final String id;
 
   const MovieItemCardView({
     required this.index,
@@ -16,12 +18,20 @@ class MovieItemCardView extends StatelessWidget {
     required this.rating,
     required this.releaseDate,
     required this.overView,
+    required this.id,
   });
+
+  void onClick(BuildContext context) {
+    Navigator.of(context)
+        .pushNamed(MovieScreen.routeName, arguments: {'id': id});
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => debugPrint(index.toString()),
+      onTap: () {
+        onClick(context);
+      },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         child: Stack(

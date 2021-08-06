@@ -60,6 +60,7 @@ class _UpcomingMovieListState extends State<UpcomingMovieList> {
                       rating: state.moviesList[index].voteAverage.toString(),
                       releaseDate: state.moviesList[index].releaseDate,
                       overView: state.moviesList[index].overview,
+                      id: state.moviesList[index].id.toString(),
                     );
             },
           );

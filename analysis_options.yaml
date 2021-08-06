@@ -3,6 +3,7 @@ include: package:lint/analysis_options.yaml
 linter:
   rules:
     sort_pub_dependencies: false
+    cast_nullable_to_non_nullable: false
 
 analyzer:
   strong-mode:
