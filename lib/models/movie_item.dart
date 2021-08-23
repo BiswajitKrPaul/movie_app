@@ -97,7 +97,7 @@ class MovieItem {
         tagline: json["tagline"] ?? '',
         title: json["title"] ?? '',
         video: json["video"] ?? false,
-        voteAverage: json["vote_average"] ?? 0.0,
+        voteAverage: double.parse(json["vote_average"].toString()),
         voteCount: json["vote_count"] ?? -1,
       );
 

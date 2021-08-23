@@ -1,13 +1,15 @@
 import 'package:http/http.dart' as http;
 import 'package:movie_app/constants/api_constants.dart';
+import 'package:movie_app/models/movie_item.dart';
 import 'package:movie_app/models/search_movie_item.dart';
 
 abstract class MovieRepository {
   Future<SearchMovieItem> searchPopularMovie(String pageno);
   Future<SearchMovieItem> searchUpcomingMovie(String pageno);
+  Future<MovieItem> getMovieDetails(String id);
 }
 
-class MovieItem extends MovieRepository {
+class MovieItemApI extends MovieRepository {
   List<Result> movieList = [];
 
   @override
@@ -39,6 +41,22 @@ class MovieItem extends MovieRepository {
       }
     } catch (error) {
       throw Exception(error);
+    }
+  }
+
+  @override
+  Future<MovieItem> getMovieDetails(String id) async {
+    try {
+      final Uri uri = Uri.parse('$kApiURL$kMovieIdURL$id');
+      final response = await http.get(uri);
+      if (response.statusCode == 200) {
+        final extractedData = movieItemFromJson(response.body);
+        return extractedData;
+      } else {
+        throw Exception('Could Not Retrieve Data');
+      }
+    } catch (e) {
+      throw Exception(e);
     }
   }
 }

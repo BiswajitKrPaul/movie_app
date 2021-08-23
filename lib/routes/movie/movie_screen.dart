@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_app/blocs/movie/movie_search_bloc.dart';
-import 'package:http/http.dart' as http;
-import 'package:movie_app/constants/api_constants.dart';
-import 'package:movie_app/models/movie_item.dart';
+import 'package:movie_app/blocs/movieItem/movie_item_bloc.dart';
 
-class MovieScreen extends StatelessWidget {
+class MovieScreen extends StatefulWidget {
   static const String routeName = 'MovieScreen';
 
   const MovieScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  _MovieScreenState createState() => _MovieScreenState();
+}
+
+class _MovieScreenState extends State<MovieScreen> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     final data =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    context.read<MovieItemBloc>().add(GetMovieData(id: data['id']));
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Movie'),
@@ -21,21 +29,21 @@ class MovieScreen extends StatelessWidget {
       body: Column(
         children: [
           Center(
-            child: BlocBuilder<MovieSearchBloc, MovieSearchState>(
+            child: BlocBuilder<MovieItemBloc, MovieItemState>(
               builder: (context, state) {
-                return Text(data['id']);
+                if (state is MovieItemInitial) {
+                  return const CircularProgressIndicator();
+                } else if (state is MovieItemLoaded) {
+                  return Center(
+                    child: Text(state.movieData.title),
+                  );
+                } else if (state is MovieItemError) {
+                  return Text(state.error);
+                } else {
+                  return Container();
+                }
               },
             ),
-          ),
-          ElevatedButton(
-            onPressed: () async {
-              final String id = data['id'];
-              final Uri uri = Uri.parse('$kApiURL$kMovieIdURL/$id');
-              final response = await http.get(uri);
-              final movieItem = movieItemFromJson(response.body);
-              debugPrint(movieItem.originalTitle);
-            },
-            child: const Text('Click Me'),
           ),
         ],
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app/blocs/movieItem/movie_item_bloc.dart';
 import 'package:movie_app/constants/theme.dart';
 import 'package:movie_app/repository/search_movie_repository.dart';
 import 'package:movie_app/routes/homepage.dart';
@@ -20,11 +21,20 @@ void main() {
     MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => MovieSearchBloc(movieRepository: MovieItem()),
+          create: (context) => MovieSearchBloc(
+            movieRepository: MovieItemApI(),
+          ),
         ),
         BlocProvider(
-          create: (ctx) => PopularMovieBloc(movieRepository: MovieItem()),
+          create: (ctx) => PopularMovieBloc(
+            movieRepository: MovieItemApI(),
+          ),
         ),
+        BlocProvider(
+          create: (context) => MovieItemBloc(
+            MovieItemApI(),
+          ),
+        )
       ],
       child: MyApp(),
     ),
