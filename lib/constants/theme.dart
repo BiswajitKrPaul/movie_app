@@ -63,16 +63,10 @@ ThemeData basicTheme() {
     primaryColor: kBackGroudColor,
     indicatorColor: kPrimaryYellow,
     scaffoldBackgroundColor: kBackGroudColor,
-    accentColor: kPrimaryYellow,
-    accentIconTheme: const IconThemeData(
-      color: Colors.black,
-      size: 20.0,
-    ),
     iconTheme: const IconThemeData(
       color: Colors.white,
       size: 20.0,
     ),
-    buttonColor: kPrimaryYellow,
     backgroundColor: Colors.white,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -106,6 +100,7 @@ ThemeData basicTheme() {
     colorScheme: base.colorScheme.copyWith(
       primary: kPrimaryYellow,
       background: kPrimaryBlack,
+      onPrimary: Colors.black,
     ),
   );
 }

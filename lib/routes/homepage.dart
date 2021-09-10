@@ -16,6 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final a = 1;
   int currentIndex = 0;
 
   void onSelectedIndex(int index) {
