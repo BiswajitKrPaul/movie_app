@@ -4,8 +4,9 @@ import 'package:movie_app/widgets/popular_movie_list.dart';
 import 'package:movie_app/widgets/upcoming_movie_list.dart';
 
 class MovieHome extends StatefulWidget {
-  final String _title;
-  const MovieHome(this._title);
+  final String title;
+
+  const MovieHome({Key? key, required this.title}) : super(key: key);
 
   @override
   _MovieHomeState createState() => _MovieHomeState();
@@ -19,7 +20,7 @@ class _MovieHomeState extends State<MovieHome> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            widget._title,
+            widget.title,
           ),
           centerTitle: false,
           bottom: TabBar(

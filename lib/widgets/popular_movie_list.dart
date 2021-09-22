@@ -4,7 +4,7 @@ import 'package:movie_app/blocs/movie/movie_search_bloc.dart';
 import 'package:movie_app/widgets/movie_item_card.dart';
 
 class PopularMovieList extends StatefulWidget {
-  const PopularMovieList();
+  const PopularMovieList({Key? key}) : super(key: key);
 
   @override
   _PopularMovieListState createState() => _PopularMovieListState();

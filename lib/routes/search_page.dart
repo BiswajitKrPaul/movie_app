@@ -3,8 +3,9 @@ import 'package:fluttericon/linecons_icons.dart';
 import 'package:movie_app/constants/theme.dart';
 
 class SearchHome extends StatefulWidget {
-  final String _title;
-  const SearchHome(this._title);
+  final String title;
+
+  const SearchHome({Key? key, required this.title}) : super(key: key);
 
   @override
   _SearchHomeState createState() => _SearchHomeState();
@@ -16,7 +17,7 @@ class _SearchHomeState extends State<SearchHome> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget._title,
+          widget.title,
         ),
         centerTitle: false,
       ),

@@ -36,15 +36,25 @@ class _HomePageState extends State<HomePage> {
   Widget toogleScreen(int index) {
     switch (index) {
       case 0:
-        return const MovieHome('MOVIES');
+        return const MovieHome(
+          title: 'MOVIES',
+        );
       case 1:
-        return const TvShow('TV SHOWS');
+        return const TvShow(
+          title: 'TV SHOWS',
+        );
       case 2:
-        return const FavouritePage('FAVOURITES');
+        return const FavouritePage(
+          title: 'FAVOURITES',
+        );
       case 3:
-        return const SearchHome('SEARCH');
+        return const SearchHome(
+          title: 'SEARCH',
+        );
       default:
-        return const MovieHome('MOVIES');
+        return const MovieHome(
+          title: 'MOVIES',
+        );
     }
   }
 

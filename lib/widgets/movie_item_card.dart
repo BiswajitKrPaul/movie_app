@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:movie_app/constants/api_constants.dart';
 import 'package:movie_app/routes/movie/movie_screen.dart';
 
@@ -12,6 +13,7 @@ class MovieItemCardView extends StatelessWidget {
   final String id;
 
   const MovieItemCardView({
+    Key? key,
     required this.index,
     required this.movieName,
     required this.imageUrl,
@@ -19,7 +21,7 @@ class MovieItemCardView extends StatelessWidget {
     required this.releaseDate,
     required this.overView,
     required this.id,
-  });
+  }) : super(key: key);
 
   void onClick(BuildContext context) {
     Navigator.of(context)

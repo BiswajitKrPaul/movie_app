@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
 class TvShow extends StatelessWidget {
-  final String _title;
-  const TvShow(this._title);
+  final String title;
+
+  const TvShow({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          _title,
+          title,
         ),
         centerTitle: false,
       ),

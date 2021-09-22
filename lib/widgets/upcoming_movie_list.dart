@@ -5,7 +5,7 @@ import 'package:movie_app/blocs/popularmovies/popular_movie_bloc.dart';
 import 'movie_item_card.dart';
 
 class UpcomingMovieList extends StatefulWidget {
-  const UpcomingMovieList();
+  const UpcomingMovieList({Key? key}) : super(key: key);
 
   @override
   _UpcomingMovieListState createState() => _UpcomingMovieListState();
